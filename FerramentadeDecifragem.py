@@ -69,11 +69,11 @@ if __name__ == "__main__":
     
     # 1. COLE AQUI O SK (DO SEU LOG DO PYTHON)
     # Exemplo: sk_input = "25a7c9b263979dbc99cefb5435c24e6a1fd68ccf8ad5d3f3fbdda90e4946d9ea"
-    MEU_SK = "7edd7da27e48effc5ce7ac23e875229007e9698a2b35d9053f190137fe47ffd5" 
+    MEU_SK = "F19EF6B457DDCC0B710462449DC84763E2C536B9F9BE533C6159AB7A0DA63983" 
     
     # 2. COLE AQUI O PAYLOAD DO WIRESHARK (Data)
     # Clique direito no pacote "PSH, ACK" da msg cifrada -> Copy -> Bytes as Hex Stream
-    PAYLOAD_WIRESHARK = "d14330246e93e51aa5102db4f88ffed479dc12a763bd33ca9b03a049c332f9187978024d4706a75f6dd8b6e8de39c3137215820ef875109f7c230d036aa5d84159da4c101e1abb0a27118bf209ab30779413650bef04ae"
+    PAYLOAD_WIRESHARK = "f92c7d3a2b4b2c52e954145704de01bb8c74ef3a644cebc4981d6e087584034ef28ab8ee2b312aadbe7e015bcbdb129db4c427c28e9c122eb9e54918bb13a0139714f9877710d2d6bcb48dc00ff457599ffa9ede9d7166976a14f004"
     
     # ================================================
     
