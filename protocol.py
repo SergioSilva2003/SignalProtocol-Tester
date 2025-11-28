@@ -156,7 +156,8 @@ class SessaoSegura:
             incoming_pub = x25519.X25519PublicKey.from_public_bytes(pub_bytes)
         except: return None
         
-        if not self.sou_iniciador and not self.sessao_inicializada:
+        if not self.sou_iniciador and not self.sessao_inicializada: #se por acaso o outro nao alterou a catraca assimetrica entao eu decifro o que o outro enviou e rodo a catraca assimetrica para poder responder-lo
+        
             self.other_party_dh_public = incoming_pub 
             try:
                 msg_key, next_chain = self._avancar_catraca_simetrica(self.chain_key_recv)
@@ -171,12 +172,12 @@ class SessaoSegura:
                 return plaintext
             except: return None
 
-        if self.other_party_dh_public != incoming_pub:
+        if self.other_party_dh_public != incoming_pub: #se a chave do outro mudar enquanto esta a enviar mensagens para eu decifrar eu rodo a minha catraca assimetrica para estar sincronizado com a chave publica do outro
             self._avancar_catraca_assimetrica(incoming_pub, "recv")
             self.other_party_dh_public = incoming_pub
         
         try:
-            msg_key, next_chain = self._avancar_catraca_simetrica(self.chain_key_recv)
+            msg_key, next_chain = self._avancar_catraca_simetrica(self.chain_key_recv) #procede a decrifrar com a catraca simetrica pois o outro ainda esta a enviar mensagens
             plaintext = AESGCM(msg_key).decrypt(nonce, ciphertext, None).decode('utf-8')
             self.chain_key_recv = next_chain
             return plaintext
