@@ -54,4 +54,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             msg = sessao.decifrar(dados)
             if msg:
                 print(f"\n[Bob] Recebido: '{msg}'")
-                conn.sendall(sessao.cifrar("Recebido 5/5 (Modo PQ)"))
+                conn.sendall(sessao.cifrar("Recebido a tua mensagem senhora Alice"))

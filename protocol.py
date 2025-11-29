@@ -115,9 +115,16 @@ class SessaoSegura:
         if iniciador:
             self.chain_key_send = self.derivar(self.root_key, b"primeira-chain-key")
             self.chain_key_recv = None 
+            print(f"\n{'='*10} INICIALIZAÇÃO {'='*10}")
+            print(f"[INIT] 1ª CHAIN KEY (Alice Envio): {self.chain_key_send.hex()}")
+            print(f"{'='*35}\n")
         else:
             self.chain_key_send = None 
             self.chain_key_recv = self.derivar(self.root_key, b"primeira-chain-key")
+            print(f"\n{'='*10} INICIALIZAÇÃO {'='*10}")
+            print(f"[INIT] 1ª CHAIN KEY (Bob Receção): {self.chain_key_recv.hex()}")
+            print(f"{'='*35}\n")
+            
 
     def derivar(self, chave, info):
         hkdf = HKDF(algorithm=hashes.SHA256(), length=32, salt=None, info=info, backend=default_backend())
@@ -126,6 +133,7 @@ class SessaoSegura:
     def _avancar_catraca_simetrica(self, chain_key):
         msg_key = self.derivar(chain_key, b"chave-mensagem")
         next_chain = self.derivar(chain_key, b"proxima-chain-key")
+
         return msg_key, next_chain
 
     def _avancar_catraca_assimetrica(self, other_pub, chain_type):
@@ -133,11 +141,19 @@ class SessaoSegura:
         root_input = self.root_key + dh_secret
         self.root_key = self.derivar(root_input, b"nova-root-key")
         nova_chain = self.derivar(self.root_key, b"nova-chain-key")
+        
+        # === ADICIONA ESTE BLOCO DE DEBUG ===
+        tipo = "ENVIO" if chain_type == "send" else "RECEÇÃO"
+        print(f"\n{'='*10} ROTAÇÃO ASSIMÉTRICA ({tipo}) {'='*10}")
+        print(f"1. Nova Root Key:  {self.root_key.hex()}")
+        print(f"2. Nova CHAIN KEY: {nova_chain.hex()}") # <--- É ESTA QUE TU QUERES!
+        print(f"{'='*45}\n")
+        # ====================================
+
         if chain_type == "send": self.chain_key_send = nova_chain
         elif chain_type == "recv":
             self.chain_key_recv = nova_chain
             self.dh_ratchet_private, self.dh_ratchet_public = generate_x25519_keys()
-
     def cifrar(self, plaintext):
         if self.other_party_dh_public:
             self._avancar_catraca_assimetrica(self.other_party_dh_public, "send")
