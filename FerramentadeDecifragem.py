@@ -4,13 +4,12 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-# ================= CONFIGURAÇÃO =================
 # 1. Cola aqui a 'Nova CHAIN KEY' que apareceu no terminal
-CHAIN_KEY_HEX = "0420064f5ea27b42c34b8aec6384f00893a9e06bb0b30b6e8c02284d06686229"
+CHAIN_KEY_HEX = "27447b74f9b5b97e39dea209b9d0fd295f01209692dbba5f6c37cfe9b8742140"
 
 # 2. Cola aqui o Payload da mensagem
-PAYLOAD_HEX = "a0773d4694cf36f4ff5376164e3add9809892444a043c38184291d9ad7f5ba52ecf97f187d0d8125d7907e820210cc09c3a41547701d5185172b4673de3afeac7c9fbd31239219af9ae52db91bb6ccfbd17435a76499e688694ee63f"
-# ================================================
+PAYLOAD_HEX = "d5a2aa9a2ca6939851883b71873e1deb41f5c938c6d1865bd85f0d9f5f336935b8915adce99de7467c094a90a17c4bfbcd18c6d7fc23fa97bbf94df6e9f674e395e4f339749b62dc413ffc46e4b39edff3ea4ec0fc6ab2d9"
+
 
 def derive(material, info):
     hkdf = HKDF(
@@ -54,3 +53,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+

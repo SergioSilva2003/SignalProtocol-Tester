@@ -46,7 +46,7 @@ try:
         
         # Msg 2
         print("Enviando Msg 2...")
-        s.sendall(sessao.cifrar("Teste de estabilidade."))
+        s.sendall(sessao.cifrar("Bob recebeste esta mensagem?"))
         resp2 = s.recv(4096)
         print(f"Resposta 2: {sessao.decifrar(resp2)}")
 
