@@ -1,7 +1,6 @@
 import socket
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import x25519
-# AQUI ESTÁ A MAGIA: Importamos do ficheiro protocolo.py
 from protocol import Participante, SessaoSegura
 
 HOST = '127.0.0.1'
